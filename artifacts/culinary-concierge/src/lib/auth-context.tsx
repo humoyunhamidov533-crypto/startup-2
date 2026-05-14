@@ -55,7 +55,7 @@ const SYSTEM_ACCOUNTS = [
   },
 ];
 
-const API_BASE = "/api";
+const API_BASE = "https://startup-2-f8oh.onrender.com/api";
 
 async function apiPost(path: string, body: object) {
   const res = await fetch(`${API_BASE}${path}`, {

@@ -46,7 +46,7 @@ interface TableOrdersContextType {
 
 const TableOrdersContext = createContext<TableOrdersContextType | null>(null);
 
-const API_BASE = "/api";
+const API_BASE = "https://startup-2-f8oh.onrender.com/api";
 
 async function apiFetch(path: string, method = "GET", body?: object) {
   const res = await fetch(`${API_BASE}${path}`, {
