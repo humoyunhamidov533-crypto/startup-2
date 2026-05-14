@@ -96,12 +96,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // System accountlar (admin, waiter)
     const sysAccount = SYSTEM_ACCOUNTS.find(a => a.email === email && a.password === password);
     if (sysAccount) {
       setUser(sysAccount.user);
       localStorage.setItem("kk_user", JSON.stringify(sysAccount.user));
-      // MongoDB da ham seed qilamiz agar yo'q bo'lsa
       try {
         await apiPost("/auth/login", { email, password });
       } catch {
@@ -115,7 +113,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return true;
     }
 
-    // Oddiy foydalanuvchilar — MongoDB dan
     try {
       const userData = await apiPost("/auth/login", { email, password });
       setUser(userData);
@@ -133,7 +130,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(userData);
       localStorage.setItem("kk_user", JSON.stringify(userData));
       return true;
-    } catch {
+    } catch (err) {
+      console.error("Register xato:", err);
       return false;
     }
   };
